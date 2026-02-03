@@ -132,15 +132,6 @@
             Your approved request form has been attached to this email as a PDF. Please save it for your records.
         </div>
         
-        <p>
-            <strong>Next Steps:</strong>
-        </p>
-        <ul>
-            <li>A trip ticket will be generated shortly</li>
-            <li>You will receive another notification when the trip ticket is ready</li>
-            <li>Please keep the attached approved request form for your records</li>
-        </ul>
-        
         <p>If you have any questions or concerns, please don't hesitate to contact us at <strong>hasperthegreat04@gmail.com</strong>.</p>
     </div>
     

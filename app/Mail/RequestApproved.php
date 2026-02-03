@@ -15,15 +15,18 @@ class RequestApproved extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $vehicleRequest;
+    public $request;
     public $pdfContent;
 
     /**
      * Create a new message instance.
+     * 
+     * @param VehicleRequest $request The approved vehicle request
+     * @param string|null $pdfContent The PDF content as a string (from FPDI Output('S'))
      */
-    public function __construct(VehicleRequest $vehicleRequest, $pdfContent = null)
+    public function __construct(VehicleRequest $request, ?string $pdfContent = null)
     {
-        $this->vehicleRequest = $vehicleRequest;
+        $this->request = $request;
         $this->pdfContent = $pdfContent;
     }
 
@@ -37,7 +40,7 @@ class RequestApproved extends Mailable
                 config('mail.from.address'),
                 config('mail.from.name')
             ),
-            subject: 'Vehicle Request Approved - Request #' . $this->vehicleRequest->id,
+            subject: '✅ Vehicle Request Approved - GSU Motorpool Services',
         );
     }
 
@@ -49,16 +52,16 @@ class RequestApproved extends Mailable
         return new Content(
             view: 'emails.request-approved',
             with: [
-                'request' => $this->vehicleRequest,
-                'requesterName' => $this->vehicleRequest->user->name,
-                'destination' => $this->vehicleRequest->destination,
-                'dateOfTravel' => $this->vehicleRequest->date_of_travel->format('F d, Y'),
-                'timeOfTravel' => $this->vehicleRequest->time_of_travel,
-                'vehicle' => $this->vehicleRequest->vehicle ? $this->vehicleRequest->vehicle->description : 'N/A',
-                'vehiclePlate' => $this->vehicleRequest->vehicle ? $this->vehicleRequest->vehicle->plate_number : 'N/A',
-                'driverName' => $this->vehicleRequest->driver ? $this->vehicleRequest->driver->name : 'N/A',
-                'approvedBy' => $this->vehicleRequest->approver ? $this->vehicleRequest->approver->name : 'Admin',
-                'approvedAt' => $this->vehicleRequest->approved_at->format('F d, Y h:i A'),
+                'requesterName' => $this->request->user->name,
+                'request' => $this->request,
+                'destination' => $this->request->destination,
+                'dateOfTravel' => $this->request->date_of_travel->format('F d, Y'),
+                'timeOfTravel' => $this->request->time_of_travel,
+                'vehicle' => $this->request->vehicle->description ?? 'N/A',
+                'vehiclePlate' => $this->request->vehicle->plate_number ?? 'N/A',
+                'driverName' => $this->request->driver->name ?? 'N/A',
+                'approvedBy' => $this->request->approver->name ?? 'Admin',
+                'approvedAt' => $this->request->approved_at->format('F d, Y h:i A'),
             ],
         );
     }
@@ -72,10 +75,12 @@ class RequestApproved extends Mailable
     {
         $attachments = [];
 
-        // Attach PDF if provided
+        // If PDF content is provided, attach it directly from string
         if ($this->pdfContent) {
-            $attachments[] = Attachment::fromData(fn () => $this->pdfContent, 'Request_' . $this->vehicleRequest->id . '_Approved.pdf')
-                ->withMime('application/pdf');
+            $attachments[] = Attachment::fromData(
+                fn () => $this->pdfContent,
+                'Vehicle_Request_Approved_' . $this->request->id . '.pdf'
+            )->withMime('application/pdf');
         }
 
         return $attachments;

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use App\Models\Notification;
 use App\Models\Request as VehicleRequest;
+use App\Mail\RequestApproved;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
@@ -127,15 +128,14 @@ class NotificationService
 
     /**
      * 3. APPROVAL ADMIN APPROVES/DECLINES
-     * Notify: Client (in-app only — the approval email with PDF attachment
-     *          is already sent by ApprovalController::approve())
-     *
-     * Notify: Ticket Admin (if approved) — handled separately via notifyTicketAdmin()
+     * Notify: Client (in-app + email for approval)
+     * Notify: Ticket Admin (if approved)
      */
-    public function notifyClient(VehicleRequest $request, string $action)
+    public function notifyClient(VehicleRequest $request, string $action, ?string $pdfPath = null)
     {
         try {
             if ($action === 'approved') {
+                // Create in-app notification
                 Notification::create([
                     'user_id' => $request->user_id,
                     'type' => 'request_approved',
@@ -153,8 +153,25 @@ class NotificationService
                     'read' => false,
                 ]);
 
-                // NOTE: The approval email (with PDF attachment) is sent directly
-                // in ApprovalController::approve(). Do NOT send it again here.
+                // Send approval email with PDF attachment
+                try {
+                    Mail::to($request->user->email)->send(
+                        new RequestApproved($request, $pdfPath)
+                    );
+                    
+                    Log::info('Approval email sent successfully', [
+                        'request_id' => $request->id,
+                        'user_email' => $request->user->email,
+                        'has_pdf' => !is_null($pdfPath)
+                    ]);
+                } catch (\Exception $e) {
+                    Log::error('Failed to send approval email', [
+                        'request_id' => $request->id,
+                        'user_email' => $request->user->email,
+                        'error' => $e->getMessage()
+                    ]);
+                    // Don't throw - we still want the in-app notification to work
+                }
 
             } elseif ($action === 'declined') {
                 Notification::create([
