@@ -4,7 +4,7 @@
 /public/storage
 /public/build
 /storage/pail
-vendor
+/vendor
 /storage/app/*
 !storage/app/fonts/
 !storage/app/.gitignore
