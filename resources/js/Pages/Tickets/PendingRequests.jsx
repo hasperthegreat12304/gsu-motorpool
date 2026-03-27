@@ -373,7 +373,7 @@ export default function PendingRequests({ pendingRequests = [], allTickets = [],
                 <tbody className="divide-y divide-gray-200">
                     {requests.length === 0 ? (
                         <tr>
-                            <td colSpan={activeTab === 'all' ? 7 : 7} className="px-6 py-8 text-center text-gray-500">
+                            <td colSpan={activeTab === 'all' ? 6 : 6} className="px-6 py-8 text-center text-gray-500">
                                 <div className="flex flex-col items-center justify-center">
                                     <FileText className="w-12 h-12 mb-2 text-gray-400" />
                                     <p>No requests found</p>
@@ -404,11 +404,6 @@ export default function PendingRequests({ pendingRequests = [], allTickets = [],
                                     <div>{formatDate(request.date_of_travel)}</div>
                                     <div className="text-xs text-gray-500">{formatTime(request.time_of_travel)}</div>
                                 </td>
-                                {activeTab === 'pending' && (
-                                    <td className="px-6 py-4 text-sm text-gray-900 max-w-xs truncate">
-                                        {request.purpose}
-                                    </td>
-                                )}
                                 {showActions && (
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {activeTab === 'pending' ? (
