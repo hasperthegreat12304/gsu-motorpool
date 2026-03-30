@@ -140,6 +140,9 @@ export default function TicketAdminDashboard({ data }) {
                                         )}
                                     </div>
                                 </div>
+                                
+                                {/* Calendar Widget */}
+                                <CalendarWidget userRole="ticket_admin" />
                             </div>
 
                             {/* Right Column */}
@@ -243,9 +246,6 @@ export default function TicketAdminDashboard({ data }) {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Calendar Widget */}
-                        <CalendarWidget userRole="ticket_admin" />
 
                         <style>{`
                             @keyframes slideIn {
