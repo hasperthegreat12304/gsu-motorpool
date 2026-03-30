@@ -92,7 +92,7 @@ export default function ClientDashboard({ data }) {
                         {/* Main Content Grid */}
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                             {/* Recent Requests Timeline - 2 columns */}
-                            <div className="lg:col-span-2">
+                            <div className="lg:col-span-2 space-y-6">
                                 <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
                                     <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200">
                                         <h3 className="text-lg font-bold text-gray-900">Recent Requests</h3>
@@ -163,6 +163,9 @@ export default function ClientDashboard({ data }) {
                                         )}
                                     </div>
                                 </div>
+
+                                {/* Calendar Widget */}
+                                <CalendarWidget userRole="client" />
                             </div>
 
                             {/* Upcoming Trips - 1 column */}
@@ -212,9 +215,6 @@ export default function ClientDashboard({ data }) {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Calendar Widget */}
-                        <CalendarWidget userRole="client" />
 
                         <style>{`
                             @keyframes slideIn {

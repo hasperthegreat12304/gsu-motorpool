@@ -115,7 +115,7 @@ export default function AssignmentAdminDashboard({ data }) {
                         {/* Main Content Grid */}
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                             {/* Pending Queue - 2 columns */}
-                            <div className="lg:col-span-2">
+                            <div className="lg:col-span-2 space-y-6">
                                 <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
                                     <div className="bg-gradient-to-r from-amber-50 to-orange-100 px-6 py-4 border-b border-amber-200">
                                         <div className="flex items-center justify-between">
@@ -184,6 +184,10 @@ export default function AssignmentAdminDashboard({ data }) {
                                         )}
                                     </div>
                                 </div>
+                                
+                                {/* Calendar Widget */}
+                                <CalendarWidget userRole="assignment_admin" />
+
                             </div>
 
                             {/* Assigned Today - 1 column */}
@@ -231,9 +235,6 @@ export default function AssignmentAdminDashboard({ data }) {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Calendar Widget */}
-                        <CalendarWidget userRole="assignment_admin" />
 
                         <style>{`
                             @keyframes slideIn {
