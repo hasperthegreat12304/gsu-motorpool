@@ -99,7 +99,7 @@ const TripTicketViewModal = ({ isOpen, closeModal, request }) => {
                                 <label className="text-sm font-medium text-gray-700">Vehicle</label>
                                 <div className="p-3 bg-gray-50 rounded-lg">
                                     <p className="text-sm text-gray-900">
-                                        {request.vehicle?.model || 'N/A'} - {request.vehicle?.plate_number || 'N/A'}
+                                        {request.vehicle?.description || 'N/A'} - {request.vehicle?.plate_number || 'N/A'}
                                     </p>
                                 </div>
                             </div>
