@@ -341,7 +341,7 @@ export default function RequestManagement({
                                                                 <div>
                                                                     <span className="font-medium">Vehicle:</span>
                                                                     <span className="ml-2 text-gray-700">
-                                                                        {request.vehicle?.model || '—'} - {request.vehicle?.plate_number || '—'}
+                                                                        {request.vehicle?.description || '—'} - {request.vehicle?.plate_number || '—'}
                                                                     </span>
                                                                 </div>
                                                             </div>
