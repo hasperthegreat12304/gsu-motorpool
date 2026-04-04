@@ -30,6 +30,7 @@ export default function TicketAdminDashboard({ data }) {
                                 icon={Clock}
                                 color="amber"
                                 subtitle="Need generation"
+                                link={route('tickets.pending-requests')}
                             />
                             <StatCard
                                 title="Generated Today"
@@ -51,6 +52,7 @@ export default function TicketAdminDashboard({ data }) {
                                 icon={FileText}
                                 color="purple"
                                 subtitle="All time"
+                                link={route('tickets.pending-requests') + '?tab=all'}
                             />
                         </div>
 

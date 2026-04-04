@@ -39,6 +39,7 @@ export default function ClientDashboard({ data }) {
                                 icon={Clock}
                                 color="amber"
                                 subtitle="Awaiting assignment"
+                                link={route('requests.index')}
                             />
 
                             {/* Assigned Requests */}
@@ -48,6 +49,7 @@ export default function ClientDashboard({ data }) {
                                 icon={TrendingUp}
                                 color="blue"
                                 subtitle="Awaiting approval"
+                                link={route('requests.index') + '?tab=assigned'}
                             />
 
                             {/* Approved Requests */}
@@ -57,6 +59,7 @@ export default function ClientDashboard({ data }) {
                                 icon={CheckCircle}
                                 color="green"
                                 subtitle="Ready to go"
+                                link={route('requests.index') + '?tab=approved'}
                             />
 
                             {/* Active Today */}
@@ -75,6 +78,7 @@ export default function ClientDashboard({ data }) {
                                 icon={CheckCircle}
                                 color="gray"
                                 subtitle="Past trips"
+                                link={route('requests.index') + '?tab=completed'}
                             />
                         </div>
 
@@ -236,7 +240,7 @@ export default function ClientDashboard({ data }) {
 }
 
 // Stat Card Component
-function StatCard({ title, value, icon: Icon, color, subtitle }) {
+function StatCard({ title, value, icon: Icon, color, subtitle, link }) {
     const colorClasses = {
         amber: 'from-amber-500 to-orange-600',
         blue: 'from-blue-500 to-indigo-600',
@@ -245,7 +249,7 @@ function StatCard({ title, value, icon: Icon, color, subtitle }) {
         gray: 'from-gray-500 to-slate-600',
     };
 
-    return (
+    const card = (
         <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-200 transform hover:scale-105">
             <div className={`bg-gradient-to-br ${colorClasses[color]} p-4`}>
                 <div className="flex items-center justify-between">
@@ -261,4 +265,8 @@ function StatCard({ title, value, icon: Icon, color, subtitle }) {
             </div>
         </div>
     );
+
+    return link
+        ? <Link href={link} className="block">{card}</Link>
+        : card;
 }

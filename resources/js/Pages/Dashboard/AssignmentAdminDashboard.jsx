@@ -38,6 +38,7 @@ export default function AssignmentAdminDashboard({ data }) {
                                 icon={CheckCircle}
                                 color="blue"
                                 subtitle="Forwarded"
+                                link={route('assignment.requests.index') + '?tab=forwarded'}
                             />
                             <StatCard
                                 title="Available Vehicles"

@@ -19,7 +19,9 @@ export default function RequestManagement({
     cancelledRequests,
 }) {
     const { auth: pageAuth } = usePage().props;
-    const [activeTab, setActiveTab] = useState('pending');
+    const { url } = usePage();
+    const initialTab = new URLSearchParams(url.split('?')[1] || '').get('tab') || 'pending';
+    const [activeTab, setActiveTab] = useState(initialTab);
     const [searchTerm, setSearchTerm] = useState('');
     const [submittingId, setSubmittingId] = useState(null);
     const [declineReason, setDeclineReason] = useState('');

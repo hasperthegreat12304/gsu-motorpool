@@ -27,6 +27,11 @@ const StatusBadge = ({ status, size = 'md' }) => {
             classes: 'bg-purple-100 text-purple-700 border-purple-200',
             dotColor: 'bg-purple-500',
         },
+        cancelled: {
+            label: 'Cancelled',
+            classes: 'bg-gray-100 text-gray-600 border-gray-200',
+            dotColor: 'bg-gray-400',
+        },
     };
 
     const sizeClasses = {
@@ -41,7 +46,11 @@ const StatusBadge = ({ status, size = 'md' }) => {
         lg: 'w-2.5 h-2.5',
     };
 
-    const config = statusConfig[status] || statusConfig.pending;
+    const config = statusConfig[status] || {
+        label: status ?? 'Unknown',
+        classes: 'bg-gray-100 text-gray-600 border-gray-200',
+        dotColor: 'bg-gray-400',
+    };
 
     return (
         <span

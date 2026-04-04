@@ -40,6 +40,7 @@ export default function ApprovalAdminDashboard({ data }) {
                     icon={CheckCircle}
                     color="green"
                     subtitle="Completed"
+                    link={route('admin.requests.management') + '?tab=approved'}
                 />
                 <StatCard
                     title="Declined This Week"
@@ -47,6 +48,7 @@ export default function ApprovalAdminDashboard({ data }) {
                     icon={XCircle}
                     color="red"
                     subtitle="Rejected"
+                    link={route('admin.requests.management') + '?tab=declined'}
                 />
                 <StatCard
                     title="Approval Rate"
