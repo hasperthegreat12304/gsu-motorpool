@@ -1,22 +1,23 @@
 <?php
 
-use Inertia\Inertia;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
-use App\Http\Controllers\TicketController;
+use App\Http\Controllers\Admin\ApprovalController;
+use App\Http\Controllers\Admin\AssignmentController;
+use App\Http\Controllers\Admin\DriverController;
+use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Admin\VehicleController;
+use App\Http\Controllers\AnalyticsController;
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FuelConsumptionController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
-use App\Http\Controllers\CalendarController;
-use App\Http\Controllers\AnalyticsController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SignatureController;
-use App\Http\Controllers\Admin\DriverController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\Admin\VehicleController;
-use App\Http\Controllers\Admin\ApprovalController;
-use App\Http\Controllers\FuelConsumptionController;
-use App\Http\Controllers\Admin\AssignmentController;
-use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\TicketController;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
